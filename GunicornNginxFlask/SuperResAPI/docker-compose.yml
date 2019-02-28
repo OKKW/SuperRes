@@ -1,0 +1,33 @@
+version: '2.0'
+
+services:
+
+  api:
+    container_name: api # Name can be anything
+    restart: always
+    build: ./api
+    ports:
+      - "8000:8000"
+    command: gunicorn --timeout 1020 --graceful-timeout 1000 -w 1 -b :8000 app:app
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.7'
+#          memory: 1500M
+#        reservations:
+#          cpus: '0.6'
+#          memory: 1000M    
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "8001:8001"
+    depends_on:
+      - api

@@ -22,6 +22,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 parser = reqparse.RequestParser()
 parser.add_argument('query')
 
+
 def allowed_file(filename):
 	return '.' in filename and \
 		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -116,8 +117,7 @@ def enhance():
 			return redirect(request.url)
 		if file :
 			process_input(request)
-
+			
 
 if __name__ == '__main__':
-	app.debug = True
-	app.run(host='0.0.0.0')
+	app.run(debug=True,host='0.0.0.0')
